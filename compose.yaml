@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  gitlab-server:
+    image: "gitlab/gitlab-ce:latest"
+    restart: always
+    container_name: gitlab-server
+    env_file:
+      - .env
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://localhost'
+        gitlab_rails['initial_root_password'] = ${GITLAB_INIT_PASS}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "22:22"
+    volumes:
+      - "./gitlab-server/config:/etc/gitlab"
+      - "./gitlab-server/logs:/var/log/gitlab"
+      - "./gitlab-server/data:/var/opt/gitlab"
+
