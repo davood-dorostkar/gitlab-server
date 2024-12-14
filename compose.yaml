@@ -1,39 +1,64 @@
+##############
+# Compose Mode
+##############
 services:
   gitlab:
     image: gitlab/gitlab-ee:17.6.2-ee.0
-    # container_name: gitlab
-    # restart: always
-    deploy:
-      restart_policy:
-        condition: any
-
+    container_name: gitlab
+    restart: always
     hostname: '49.13.228.90'
-    ports:
-      - "8081:80"
-      - "10443:443"
-      - "2222:22"
-    volumes:
-      - "./GITLAB_HOME/config:/etc/gitlab"
-      - "./GITLAB_HOME/logs:/var/log/gitlab"
-      - "./GITLAB_HOME/data:/var/opt/gitlab"
-    shm_size: '256m'
-    # env_file:
-    #   - .env
     environment:
-      GITLAB_OMNIBUS_CONFIG: "from_file('/omnibus_config.rb')"
-    configs:
-      - source: gitlab
-        target: /omnibus_config.rb
-    secrets:
-      - gitlab_root_password
-  # gitlab-runner:
-  #   image: gitlab/gitlab-runner:alpine
-  #   deploy:
-  #     mode: replicated
-  #     replicas: 4
-configs:
-  gitlab:
-    file: ./gitlab.rb
-secrets:
-  gitlab_root_password:
-    file: ./root_password.txt
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://49.13.228.90'
+    ports:
+      - '80:80'
+      - '443:443'
+      - '2222:22'
+    volumes:
+      - './GITLAB_HOME/config:/etc/gitlab'
+      - './GITLAB_HOME/logs:/var/log/gitlab'
+      - './GITLAB_HOME/data:/var/opt/gitlab'
+    shm_size: '256m'
+
+##############
+# Swarm Mode
+##############
+# services:
+#   gitlab:
+#     image: gitlab/gitlab-ee:17.6.2-ee.0
+#     # container_name: gitlab
+#     # restart: always
+#     deploy:
+#       restart_policy:
+#         condition: any
+
+#     hostname: '49.13.228.90'
+#     ports:
+#       - "8081:80"
+#       - "10443:443"
+#       - "2222:22"
+#     volumes:
+#       - "./GITLAB_HOME/config:/etc/gitlab"
+#       - "./GITLAB_HOME/logs:/var/log/gitlab"
+#       - "./GITLAB_HOME/data:/var/opt/gitlab"
+#     shm_size: '256m'
+#     # env_file:
+#     #   - .env
+#     environment:
+#       GITLAB_OMNIBUS_CONFIG: "from_file('/omnibus_config.rb')"
+#     configs:
+#       - source: gitlab
+#         target: /omnibus_config.rb
+#     secrets:
+#       - gitlab_root_password
+#   # gitlab-runner:
+#   #   image: gitlab/gitlab-runner:alpine
+#   #   deploy:
+#   #     mode: replicated
+#   #     replicas: 4
+# configs:
+#   gitlab:
+#     file: ./gitlab.rb
+# secrets:
+#   gitlab_root_password:
+#     file: ./root_password.txt
