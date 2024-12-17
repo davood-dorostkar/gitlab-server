@@ -3,16 +3,16 @@
 ##############
 services:
   gitlab:
-    image: gitlab/gitlab-ee:17.6.2-ee.0
+    image: gitlab/gitlab-ce:latest
     container_name: gitlab
-    restart: always
-    hostname: '49.13.228.90'
+    # restart: always
+    # hostname: 'http://localhost'
     environment:
       GITLAB_OMNIBUS_CONFIG: |
-        external_url 'http://49.13.228.90'
+        external_url 'http://localhost'
     ports:
-      - '80:80'
-      - '443:443'
+      - '8081:80'
+      - '10443:443'
       - '2222:22'
     volumes:
       - './GITLAB_HOME/config:/etc/gitlab'
