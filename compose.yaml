@@ -8,9 +8,9 @@ services:
     # restart: always
     # hostname: 'http://localhost'
     environment:
+      GITLAB_ROOT_PASSWORD: "b6SH0idY18ieDLT8iHou1CML"  
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'http://49.13.228.90'
-        gitlab_rails['initial_root_password'] = 'b6SH0idY18ieDLT8iHou1CML'
     ports:
       - '49.13.228.90:8081:80'
       - '49.13.228.90:10443:443'
