@@ -9,11 +9,11 @@ services:
     # hostname: 'http://localhost'
     environment:
       GITLAB_OMNIBUS_CONFIG: |
-        external_url 'http://localhost'
+        external_url 'http://49.13.228.90'
     ports:
-      - '8081:80'
-      - '10443:443'
-      - '2222:22'
+      - '49.13.228.90:8081:80'
+      - '49.13.228.90:10443:443'
+      - '49.13.228.90:2222:22'
     volumes:
       - './GITLAB_HOME/config:/etc/gitlab'
       - './GITLAB_HOME/logs:/var/log/gitlab'
