@@ -1,1 +1,6 @@
-GITLAB_HOME/
+GITLAB_HOME/config/**
+!GITLAB_HOME/config/gitlab.rb
+GITLAB_HOME/data/**
+!GITLAB_HOME/data/.gitkeep
+GITLAB_HOME/logs/**
+!GITLAB_HOME/logs/.gitkeep
