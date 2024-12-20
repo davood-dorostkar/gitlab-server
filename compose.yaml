@@ -4,22 +4,19 @@
 services:
   gitlab:
     image: gitlab/gitlab-ce:17.7.0-ce.0
-    container_name: gitlab
-    # restart: always
-    # hostname: 'http://localhost'
-    environment:
-      GITLAB_ROOT_PASSWORD: "b6SH0idY18ieDLT8iHou1CML"  
-      GITLAB_OMNIBUS_CONFIG: |
-        external_url 'http://49.13.228.90'
+    container_name: gitlab-server
+    hostname: gitlab-server
     ports:
-      - '49.13.228.90:8081:80'
-      - '49.13.228.90:10443:443'
-      - '49.13.228.90:2222:22'
+      - '8081:80'
+      - '10443:443'
+      - '2222:22'
     volumes:
-      - './GITLAB_HOME/config:/etc/gitlab'
-      - './GITLAB_HOME/logs:/var/log/gitlab'
-      - './GITLAB_HOME/data:/var/opt/gitlab'
-    shm_size: '256m'
+      - ./GITLAB_HOME/config:/etc/gitlab
+      - ./GITLAB_HOME/logs:/var/log/gitlab
+      - ./GITLAB_HOME/data:/var/opt/gitlab
+      - ./root_password:/run/secrets/gitlab_root_password:ro
+    restart: unless-stopped
+    shm_size: '512m'
 
 ##############
 # Swarm Mode
